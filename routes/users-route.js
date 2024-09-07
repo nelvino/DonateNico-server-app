@@ -61,7 +61,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/current-user", authenticationMiddleware, async (req, res) => {
+router.get("/me", authenticationMiddleware, async (req, res) => {
   try {
     const userId = req.user.userId;
     const user = await UserModel.findById(userId).select("-password");
@@ -71,7 +71,7 @@ router.get("/current-user", authenticationMiddleware, async (req, res) => {
   }
 });
 
-router.get("/all-users", authenticationMiddleware, async (req, res) => {
+router.get("/", authenticationMiddleware, async (req, res) => {
   try {
     const users = await UserModel.find()
       .select("-password")

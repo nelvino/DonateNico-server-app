@@ -3,7 +3,7 @@ import CampaignModel from "../models/campaign-model.js";
 import express from "express";
 const router = express.Router();
 
-router.post("/create", authenticationMiddleware, async (req, res) => {
+router.post("/", authenticationMiddleware, async (req, res) => {
   try {
     req.body.collectedAmount = 0;
     await CampaignModel.create(req.body);
@@ -14,7 +14,7 @@ router.post("/create", authenticationMiddleware, async (req, res) => {
   }
 });
 
-router.put("/update/:id", authenticationMiddleware, async (req, res) => {
+router.put("/:id", authenticationMiddleware, async (req, res) => {
   try {
     await CampaignModel.findByIdAndUpdate(req.params.id, req.body);
     return res.status(200).json({ message: "Campaign updated successfully" });
@@ -23,7 +23,7 @@ router.put("/update/:id", authenticationMiddleware, async (req, res) => {
   }
 });
 
-router.delete("/delete/:id", authenticationMiddleware, async (req, res) => {
+router.delete("/:id", authenticationMiddleware, async (req, res) => {
   try {
     await CampaignModel.findByIdAndDelete(req.params.id);
     return res.status(200).json({ message: "Campaign deleted successfully" });
@@ -32,7 +32,7 @@ router.delete("/delete/:id", authenticationMiddleware, async (req, res) => {
   }
 });
 
-router.get("/get-all", authenticationMiddleware, async (req, res) => {
+router.get("/", authenticationMiddleware, async (req, res) => {
   try {
     const campaigns = await CampaignModel.find().sort({ createdAt: -1 });
     return res.status(200).json(campaigns);
@@ -41,7 +41,7 @@ router.get("/get-all", authenticationMiddleware, async (req, res) => {
   }
 });
 
-router.get("/get/:id", authenticationMiddleware, async (req, res) => {
+router.get("/:id", authenticationMiddleware, async (req, res) => {
   try {
     const campaign = await CampaignModel.findById(req.params.id);
     return res.status(200).json(campaign);

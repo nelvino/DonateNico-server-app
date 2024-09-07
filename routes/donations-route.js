@@ -4,7 +4,7 @@ import DonationModel from "../models/donation-model.js";
 import express from "express";
 const router = express.Router();
 
-router.post("/create", authenticationMiddleware, async (req, res) => {
+router.post("/", authenticationMiddleware, async (req, res) => {
   try {
     await DonationModel.create(req.body);
     await CampaignModel.findByIdAndUpdate(req.body.campaign, {
@@ -16,7 +16,7 @@ router.post("/create", authenticationMiddleware, async (req, res) => {
   }
 });
 
-router.get("/get-all", authenticationMiddleware, async (req, res) => {
+router.get("/", authenticationMiddleware, async (req, res) => {
   try {
     const donations = await DonationModel.find().populate('campaign').populate('user').sort({ createdAt: -1 });
      
@@ -27,7 +27,7 @@ router.get("/get-all", authenticationMiddleware, async (req, res) => {
 });
 
 router.get(
-  "/get-donations-by-campaign/:id",
+  "/:id",
   authenticationMiddleware,
   async (req, res) => {
     try {
@@ -42,7 +42,7 @@ router.get(
 );
 
 router.get(
-  "/get-donations-by-user/:id",
+  "/:id",
   authenticationMiddleware,
   async (req, res) => {
     try {

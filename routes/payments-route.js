@@ -5,7 +5,7 @@ import express from "express";
 const router = express.Router();
 
 router.post(
-  "/create-payment-intent",
+  "/",
   authenticationMiddleware,
   async (req, res) => {
     try {

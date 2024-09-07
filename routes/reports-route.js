@@ -5,7 +5,7 @@ import UserModel from "../models/user-model.js";
 import express from "express";
 const router = express.Router();
 
-router.get("/admin-reports", authenticationMiddleware, async (req, res) => {
+router.get("/admin", authenticationMiddleware, async (req, res) => {
   try {
     const [totalUsers, totalCampaigns, donations] = await Promise.all([
       UserModel.countDocuments({}),
@@ -33,7 +33,7 @@ router.get("/admin-reports", authenticationMiddleware, async (req, res) => {
   }
 });
 
-router.get("/user-reports/:id", authenticationMiddleware, async (req, res) => {
+router.get("/user/:id", authenticationMiddleware, async (req, res) => {
   try {
     const [donations] = await Promise.all([
       DonationModel.find({
